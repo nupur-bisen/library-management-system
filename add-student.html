@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Add Student</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f7f6;
+    }
+
+    header {
+        background: #1f6f4a;
+        color: white;
+        text-align: center;
+        padding: 25px;
+    }
+
+    header h1 {
+        margin: 0;
+    }
+
+    .box {
+        background: white;
+        width: 400px;
+        max-width: 90%;
+        margin: 45px auto;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 0;
+        color: #1f6f4a;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 9px 0;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 6px;
+        background: #1f6f4a;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #155536;
+    }
+
+    #message {
+        text-align: center;
+        margin-top: 18px;
+        font-weight: bold;
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #1f6f4a;
+        text-decoration: none;
+    }
+</style>
+
+</head><body><header>
+    <h1>📚 Library Management System</h1>
+</header>
+
+<div class="box">
+
+    <h2>👨‍🎓 Add Student</h2>
+
+    <input type="text" id="name" placeholder="Student Name">
+
+    <input type="text" id="studentId" placeholder="Student ID">
+
+    <input type="text" id="course" placeholder="Course">
+
+    <input type="email" id="email" placeholder="Email">
+
+    <button type="button" onclick="addStudent()">
+        Add Student
+    </button>
+
+    <p id="message"></p>
+
+    <a href="index.html" class="back">
+        ← Back to Home
+    </a>
+
+</div>
+
+<script>
+    async function addStudent() {
+
+        const name = document.getElementById("name").value.trim();
+        const studentId = document.getElementById("studentId").value.trim();
+        const course = document.getElementById("course").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        const message = document.getElementById("message");
+
+        if (name === "" || studentId === "") {
+            message.innerHTML = "Please enter Name and Student ID";
+            message.style.color = "red";
+            return;
+        }
+
+        try {
+
+            const response = await fetch(
+                "http://localhost:5000/api/students",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        studentId: studentId,
+                        course: course,
+                        email: email
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (response.ok) {
+
+                message.innerHTML =
+                    "Student added successfully!";
+
+                message.style.color = "green";
+
+                document.getElementById("name").value = "";
+                document.getElementById("studentId").value = "";
+                document.getElementById("course").value = "";
+                document.getElementById("email").value = "";
+
+            } else {
+
+                message.innerHTML =
+                    data.message || "Unable to add student";
+
+                message.style.color = "red";
+            }
+
+        } catch (error) {
+
+            console.log(error);
+
+            message.innerHTML =
+                "Backend se connection nahi ho raha";
+
+            message.style.color = "red";
+        }
+    }
+</script>
+
+</body></html>

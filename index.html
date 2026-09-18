@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Library Management System</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #eef3f1;
+        color: #222;
+    }
+
+    header {
+        background: #1f6f4a;
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 32px;
+    }
+
+    header p {
+        margin: 8px 0 0;
+        font-size: 15px;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 35px auto;
+        padding: 0 20px;
+    }
+
+    .welcome {
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        text-align: center;
+        margin-bottom: 25px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .welcome h2 {
+        margin: 0 0 8px;
+        color: #1f6f4a;
+    }
+
+    .welcome p {
+        margin: 0;
+        color: #666;
+    }
+
+    .menu {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h3 {
+        margin-top: 0;
+        color: #1f6f4a;
+        font-size: 21px;
+    }
+
+    .card p {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 18px;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        border-radius: 7px;
+        background: #1f6f4a;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .btn:hover {
+        background: #155536;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 35px;
+        padding: 20px;
+        color: #777;
+        font-size: 14px;
+    }
+
+    @media (max-width: 650px) {
+        .menu {
+            grid-template-columns: 1fr;
+        }
+
+        header h1 {
+            font-size: 26px;
+        }
+    }
+</style>
+
+</head><body><header>
+    <h1>📚 Library Management System</h1>
+    <p>Manage your library easily and efficiently</p>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h2>Welcome to Our Library</h2>
+        <p>Manage books, students, issues and returns from one place.</p>
+    </div>
+
+    <div class="menu">
+
+        <div class="card">
+            <h3>📚 Books</h3>
+            <p>View and manage all library books.</p>
+
+            <a href="books.html" class="btn">View Books</a>
+            <a href="add-book.html" class="btn">Add Book</a>
+        </div>
+
+        <div class="card">
+            <h3>👨‍🎓 Students</h3>
+            <p>Manage students registered in the library.</p>
+
+            <a href="view-students.html" class="btn">View Students</a>
+            <a href="add-student.html" class="btn">Add Student</a>
+        </div>
+
+        <div class="card">
+            <h3>📖 Issue Books</h3>
+            <p>Issue books to registered students.</p>
+
+            <a href="issue-book.html" class="btn">Issue Book</a>
+        </div>
+
+        <div class="card">
+            <h3>🔄 Return Books</h3>
+            <p>Return books and check issued book records.</p>
+
+            <a href="return-book.html" class="btn">Return Book</a>
+            <a href="view-issues.html" class="btn">View Issued Books</a>
+        </div>
+
+        <div class="card">
+            <h3>🔐 Login</h3>
+            <p>Access the library login page.</p>
+
+            <a href="login.html" class="btn">Login</a>
+        </div>
+
+    </div>
+
+    <footer>
+        Library Management System © 2026
+    </footer>
+
+</div>
+
+</body></html>

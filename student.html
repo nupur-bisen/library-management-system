@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+</head>
+
+<body>
+
+    <h1>Add Student</h1>
+
+    <form onsubmit="addStudent(event)">
+
+        <label>Student Name</label><br>
+        <input type="text" id="studentname" placeholder="Student Name" required>
+        <br><br>
+
+        <label>Student ID</label><br>
+        <input type="text" id="studentId" placeholder="Student ID" required>
+        <br><br>
+
+        <label>Course</label><br>
+        <input type="text" id="course" placeholder="Course">
+        <br><br>
+
+        <label>Email</label><br>
+        <input type="email" id="email" placeholder="Email">
+        <br><br>
+
+        <button type="button" onclick="addStudent(event)">Add Student</button>
+
+    </form>
+
+    <br>
+
+    <a href="index.html">Back to Home</a>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

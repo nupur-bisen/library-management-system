@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Book</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .box {
+            background: white;
+            width: 320px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #aaa;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 15px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h2>Return Book</h2>
+
+        <input type="text" id="bookId" placeholder="Enter Issue ID">
+
+        <br>
+
+        <button type="button" onclick="returnBook()">Return Book</button>
+
+        <p id="message"></p>
+
+    </div>
+
+    <script>
+        async function returnBook() {
+
+            const issueId = document.getElementById("bookId").value.trim();
+            const message = document.getElementById("message");
+
+            if (issueId === "") {
+                message.innerHTML = "Please enter Issue ID";
+                message.style.color = "red";
+                return;
+            }
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:5000/api/issues/" + issueId + "/return",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                );
+
+                const text = await response.text();
+
+                let data;
+
+                try {
+                    data = JSON.parse(text);
+                } catch {
+                    data = { message: text };
+                }
+
+                if (response.ok) {
+                    message.innerHTML = data.message || "Book returned successfully!";
+                    message.style.color = "green";
+                } else {
+                    message.innerHTML = data.message || "Book return nahi hui";
+                    message.style.color = "red";
+                }
+
+            } catch (error) {
+
+                message.innerHTML = "Backend se connection nahi ho raha";
+                message.style.color = "red";
+
+            }
+        }
+    </script>
+
+</body>
+
+</html>

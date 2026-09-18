@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue & Return - Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Book Issue & Return</h1>
+
+    <div class="container">
+        <h2>Issue Book</h2>
+
+        <input type="text" id="issueStudentId" placeholder="Student ID">
+        <input type="text" id="issueBookId" placeholder="Book ID">
+
+        <button onclick="issueBook()">Issue Book</button>
+    </div>
+
+    <div class="container">
+        <h2>Return Book</h2>
+
+        <input type="text" id="returnTransactionId" placeholder="Transaction ID">
+
+        <button onclick="returnBook()">Return Book</button>
+    </div>
+
+    <div class="container">
+        <h2>Transaction History</h2>
+        <div id="transactionList"></div>
+    </div>
+
+    <button onclick="location.href='dashboard.html'">
+        Back to Dashboard
+    </button>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

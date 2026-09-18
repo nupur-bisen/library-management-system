@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Book</title>
+</head>
+
+<body>
+
+    <h1>Issue Book</h1>
+
+    <label>Student ID</label>
+    <br>
+    <input type="text" id="studentId" placeholder="Student ID">
+
+    <br><br>
+
+    <label>Book ISBN</label>
+    <br>
+    <input type="text" id="isbn" placeholder="Book ISBN">
+
+    <br><br>
+
+    <button type="button" id="issueButton">Issue Book</button>
+
+    <br><br>
+
+    <a href="index.html">Back to Home</a>
+
+
+    <script>
+
+        document.getElementById("issueButton").addEventListener("click", async function () {
+
+            alert("Button working");
+
+            const studentId = document.getElementById("studentId").value;
+            const isbn = document.getElementById("isbn").value;
+
+            if (studentId === "" || isbn === "") {
+                alert("Student ID aur ISBN bharo");
+                return;
+            }
+
+            try {
+
+                const response = await fetch("http://localhost:5000/api/issues", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        studentId: studentId,
+                        isbn: isbn
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Book issued successfully!");
+                } else {
+                    alert(data.message || "Book issue nahi hua");
+                }
+
+            } catch (error) {
+
+                console.log(error);
+                alert("Backend se connection nahi ho raha");
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

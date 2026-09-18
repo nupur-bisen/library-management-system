@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .student {
+            background: white;
+            width: 350px;
+            margin: 15px auto;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>All Students</h2>
+
+    <div id="students">
+        Loading students...
+    </div>
+
+    <script>
+        async function loadStudents() {
+
+            const container = document.getElementById("students");
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:5000/api/students"
+                );
+
+                const students = await response.json();
+
+                if (students.length === 0) {
+                    container.innerHTML = "No students found";
+                    return;
+                }
+
+                container.innerHTML = "";
+
+                students.forEach(student => {
+
+                    container.innerHTML += `
+                        <div class="student">
+                            <h3>${student.name}</h3>
+                            <p>Student ID: ${student.studentId}</p>
+                            <p>Course: ${student.course || "Not provided"}</p>
+                            <p>Email: ${student.email || "Not provided"}</p>
+                        </div>
+                    `;
+
+                });
+
+            } catch (error) {
+
+                console.log(error);
+                container.innerHTML = "Backend se students load nahi ho rahe";
+
+            }
+        }
+
+        loadStudents();
+    </script>
+
+</body>
+
+</html>

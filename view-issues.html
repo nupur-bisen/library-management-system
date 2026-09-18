@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Issued Books</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f6;
+        }
+
+        header {
+            background: #1f6f4a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .issue {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .issue h3 {
+            color: #1f6f4a;
+            margin-top: 0;
+        }
+
+        .issue p {
+            color: #555;
+        }
+
+        .back {
+            display: block;
+            width: 200px;
+            margin: 25px auto;
+            padding: 12px;
+            text-align: center;
+            background: #1f6f4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📋 Issued Books</h1>
+    </header>
+
+    <div class="container">
+
+        <div id="issues">
+            Loading issued books...
+        </div>
+
+        <a href="index.html" class="back">
+            ← Back to Home
+        </a>
+
+    </div>
+
+    <script>
+        async function loadIssues() {
+
+            const container = document.getElementById("issues");
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:5000/api/issues"
+                );
+
+                const issues = await response.json();
+
+                if (issues.length === 0) {
+                    container.innerHTML = "No issued books found";
+                    return;
+                }
+
+                container.innerHTML = "";
+
+                issues.forEach(issue => {
+
+                    const issueDate = issue.issueDate
+                        ? new Date(issue.issueDate).toLocaleString()
+                        : "Not Available";
+
+                    const returnDate = issue.returnDate
+                        ? new Date(issue.returnDate).toLocaleString()
+                        : "Not Returned";
+
+                    container.innerHTML += `
+                        <div class="issue">
+
+                            <h3>📖 Issued Book</h3>
+
+                            <p>
+                                <strong>Issue ID:</strong>
+                                ${issue._id}
+                            </p>
+
+                            <p>
+                                <strong>Student ID:</strong>
+                                ${issue.studentId}
+                            </p>
+
+                            <p>
+                                <strong>ISBN:</strong>
+                                ${issue.isbn}
+                            </p>
+
+                            <p>
+                                <strong>Issue Date:</strong>
+                                ${issueDate}
+                            </p>
+
+                            <p>
+                                <strong>Return Date:</strong>
+                                ${returnDate}
+                            </p>
+
+                        </div>
+                    `;
+
+                });
+
+            } catch (error) {
+
+                console.log(error);
+
+                container.innerHTML =
+                    "Backend se issued books load nahi ho rahi";
+
+            }
+        }
+
+        loadIssues();
+    </script>
+
+</body>
+
+</html>

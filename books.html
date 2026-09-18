@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>All Books</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f6;
+        }
+
+        header {
+            background: #1f6f4a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .book {
+            background: white;
+            margin: 15px 0;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .book h3 {
+            margin-top: 0;
+            color: #1f6f4a;
+        }
+
+        .book p {
+            color: #555;
+            margin: 8px 0;
+        }
+
+        .back {
+            display: block;
+            width: 200px;
+            margin: 25px auto;
+            padding: 12px;
+            text-align: center;
+            background: #1f6f4a;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        .back:hover {
+            background: #155536;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📚 All Books</h1>
+    </header>
+
+    <div class="container">
+
+        <div id="books" class="loading">
+            Loading books...
+        </div>
+
+        <a href="index.html" class="back">
+            ← Back to Home
+        </a>
+
+    </div>
+
+    <script>
+        async function loadBooks() {
+
+            const container = document.getElementById("books");
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:5000/api/books"
+                );
+
+                const books = await response.json();
+
+                if (books.length === 0) {
+                    container.innerHTML = "No books found";
+                    return;
+                }
+
+                container.className = "";
+                container.innerHTML = "";
+
+                books.forEach(book => {
+
+                    container.innerHTML += `
+                        <div class="book">
+
+                            <h3>📖 ${book.title}</h3>
+
+                            <p>
+                                <strong>Author:</strong>
+                                ${book.author}
+                            </p>
+
+                            <p>
+                                <strong>Category:</strong>
+                                ${book.category}
+                            </p>
+
+                            <p>
+                                <strong>Quantity:</strong>
+                                ${book.quantity}
+                            </p>
+
+                        </div>
+                    `;
+
+                });
+
+            } catch (error) {
+
+                console.log(error);
+
+                container.innerHTML =
+                    "Backend se books load nahi ho rahi";
+
+            }
+        }
+
+        loadBooks();
+    </script>
+
+</body>
+
+</html>
